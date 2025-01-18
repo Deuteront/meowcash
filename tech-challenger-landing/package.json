@@ -1,5 +1,5 @@
 {
-  "name": "tech-challenger-2-next2",
+  "name": "tech-challenger-landing",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -16,12 +16,11 @@
     "sass": "^1.83.4"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
+    "@module-federation/nextjs-mf": "^8.8.12",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.1.5",
-    "typescript": "^5"
+    "typescript": "^5",
+    "webpack": "^5.97.1"
   }
 }

@@ -1,3 +1,6 @@
+@import 'bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 $primary-color: #AB5373;
 $error-color: #8A2B4F;
 $secondary-color: #F8EBEE;
@@ -10,8 +13,21 @@ $span-color: #635D6C;
 $tablet_width: 1024px;
 $mobile_width: 768px;
 
-@import 'bootstrap';
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  color: $primary-color;
+  background-color: $background-color;
+
+  font-family: "Poppins", sans-serif !important;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
 
 
 .header {
@@ -169,6 +185,11 @@ $mobile_width: 768px;
   }
 }
 
+.body {
+  display: flex;
+  flex-direction: column;
+}
+
 .advantage-list {
   display: flex;
   justify-content: center;
@@ -200,7 +221,6 @@ $mobile_width: 768px;
     bottom: 47%;
   }
 }
-
 
 .footer {
   display: flex;
@@ -285,4 +305,61 @@ $mobile_width: 768px;
       letter-spacing: var(--Body-Large-Tracking, 0.5px);
     }
   }
+}
+
+.advantage {
+  display: flex;
+  padding: 28.443px;
+  flex-direction: column;
+  align-items: center;
+  gap: 14.221px;
+  border-radius: 7.111px;
+  border: 3.555px solid $border-color;
+  max-width: 250px;
+  flex: 1;
+
+  @media only screen and (max-width: $mobile_width) {
+    max-width: unset;
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #AB5373;
+    text-align: center;
+    font-size: 24.887px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+  }
+
+  .image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 90px;
+    height: -webkit-fill-available;
+    width: -webkit-fill-available;
+  }
+}
+
+.footer-copyright {
+  color: var(--Light-Neutral-Solid-NL0, #FFF);
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  background: #635D6C;
+  height: 32px;
+  align-content: center;
 }

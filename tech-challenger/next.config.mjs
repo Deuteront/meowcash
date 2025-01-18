@@ -1,40 +1,34 @@
-// import NextFederationPlugin from '@module-federation/nextjs-mf';
-//
-// export default {
-//   webpack: (config) => {
-//     config.plugins.push(
-//       new NextFederationPlugin({
-//         name: 'nextjsApp',
-//         remotes: {
-//           landingPage: 'tech-challenger-angular@http://localhost:4200/remoteEntry.js',
-//         },
-//         filename: 'static/chunks/remoteEntry.js',
-//         shared: {},
-//         extraOptions: {},
-//       }),
-//     );
-//     return config;
-//   },
-// };
-//
-// export default {
-//   webpack: (config) => {
-//     config.plugins.push(
-//       new NextFederationPlugin({
-//         name: 'nextjsApp',
-//         remotes: {
-//           landingPage: 'landingPage@http://localhost:3002/remoteEntry.js',
-//         },
-//         filename: 'static/chunks/remoteEntry.js',
-//         shared: {},
-//         extraOptions: {},
-//       }),
-//     );
-//     return config;
-//   },
-// };
-
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+import { NextFederationPlugin } from '@module-federation/nextjs-mf';
 
-export default nextConfig;
+
+export default {
+  webpack(config, { isServer }) {
+    config.plugins.push(
+      new NextFederationPlugin({
+        name: 'host',
+        filename: 'remoteEntry/js',
+        remotes: {
+          landing: `landing@${
+            isServer
+              ? 'http://localhost:3000/server/remoteEntry.js'
+              : 'http://localhost:3000/remoteEntry.js'
+          }`,
+        },
+        shared: {
+          react: {
+            singleton: true,
+            eager: true,
+            requiredVersion: false,
+          },
+          'react-dom': {
+            singleton: true,
+            eager: true,
+            requiredVersion: false,
+          },
+        },
+      }),
+    );
+    return config;
+  },
+};

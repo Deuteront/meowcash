@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { Button } from '@/components/button/button';
-import { AdvantageList } from '@/components/advantage/advantage-list';
+import { Button } from '../button/button';
+import { AdvantageList } from '../advantage/advantage-list';
 
 export function Body() {
   const router = useRouter();

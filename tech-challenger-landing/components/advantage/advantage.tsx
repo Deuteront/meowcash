@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Props } from '@/components/molecules/advantage/advantage.interface';
+import { Props } from '@/components/advantage/advantage.interface';
 
 export function Advantage({ image, text, icon }: Props) {
   return (

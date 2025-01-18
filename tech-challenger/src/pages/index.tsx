@@ -2,16 +2,14 @@
 
 import React from 'react';
 
-import { Body } from '@/components/organisms/landing-page/body/body';
-import { Footer } from '@/components/organisms/landing-page/footer/footer';
-import { Header } from '@/components/organisms/home/header/header';
+import dynamic from 'next/dynamic';
 
 const Home: React.FC = () => {
+  const LandingComponent = dynamic(() => import('landing/LandingComponent'), { ssr: false });
+
   return (
     <div className="home">
-      <Header/>
-      <Body/>
-      <Footer/>
+      <LandingComponent />
     </div>
   );
 };
