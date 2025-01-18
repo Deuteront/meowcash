@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  nextjs:
+    build:
+      context: ./../tech-challenger-2
+    ports:
+      - "3000:3000"
+    container_name: nextjs-app
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
