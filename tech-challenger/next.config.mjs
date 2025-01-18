@@ -1,34 +1,27 @@
-/** @type {import('next').NextConfig} */
 import { NextFederationPlugin } from '@module-federation/nextjs-mf';
 
-
-export default {
-  webpack(config, { isServer }) {
+process.env.NEXT_PRIVATE_LOCAL_WEBPACK = true;
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  webpack(config, options) {
     config.plugins.push(
       new NextFederationPlugin({
-        name: 'host',
-        filename: 'remoteEntry/js',
+        name: 'mfe1',
+        filename: 'static/chunks/remoteEntry.js',
         remotes: {
-          landing: `landing@${
-            isServer
-              ? 'http://localhost:3000/server/remoteEntry.js'
-              : 'http://localhost:3000/remoteEntry.js'
-          }`,
+          mfe2: `http://localhost:3001/static/${options.isServer ? 'ssr' : 'chunks'}/remoteEntry.js`,
         },
-        shared: {
-          react: {
-            singleton: true,
-            eager: true,
-            requiredVersion: false,
-          },
-          'react-dom': {
-            singleton: true,
-            eager: true,
-            requiredVersion: false,
-          },
+        shared: {},
+        extraOptions: {
+          exposePages: true,
+          enableImageLoaderFix: true,
+          enableUrlLoaderFix: true,
         },
       }),
     );
     return config;
   },
 };
+
+export default nextConfig;
