@@ -7,10 +7,10 @@ const nextConfig = {
   webpack(config, options) {
     config.plugins.push(
       new NextFederationPlugin({
-        name: 'mfe1',
-        filename: 'static/chunks/remoteEntry.js',
+        name: 'host',
+        filename: '_next/static/chunks/remoteEntry.js',
         remotes: {
-          mfe2: `http://localhost:3001/static/${options.isServer ? 'ssr' : 'chunks'}/remoteEntry.js`,
+          landing: `landing@http://localhost:3001/_next/static/chunks/remoteEntry.js`,
         },
         shared: {},
         extraOptions: {

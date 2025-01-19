@@ -7,13 +7,7 @@ import { Button } from '../button/button';
 import { AdvantageList } from '../advantage/advantage-list';
 
 export function Body() {
-  const router = useRouter();
-  //
-  // const RemoteLandingPage = dynamic(() => import('landingPage/App'), {
-  //   ssr: false,
-  // });
 
-  const handleDashboard = () => router.push('/login');
   const advantages = [
     {
       text: 'Relatórios e análises em tempo real',
@@ -43,12 +37,13 @@ export function Body() {
                   <span className="title">
                     Controle suas finanças na palma da sua pata.
                   </span>
-                  <Button
-                    onClick={handleDashboard}
-                    className={['button', 'primary-button']}
-                  >
-                    Começar agora
-                  </Button>
+                  <Link href="/dashboard" className="login">
+                    <Button
+                      className={['button', 'primary-button']}
+                    >
+                      Começar agora
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
