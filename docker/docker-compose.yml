@@ -2,10 +2,26 @@ version: '3.8'
 services:
   nextjs:
     build:
-      context: ./../tech-challenger-2
+      context: ./../tech-challenger
+    ports:
+      - "3001:3001"
+    container_name: nextjs-app
+    networks:
+      - app-network
+  landing:
+    build:
+      context: ./../tech-challenger-landing
+    ports:
+      - "3002:3002"
+    container_name: landing
+    networks:
+      - app-network
+  server:
+    build:
+      context: ./../tech-challenge-back
     ports:
       - "3000:3000"
-    container_name: nextjs-app
+    container_name: server
     networks:
       - app-network
 

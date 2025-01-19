@@ -1,7 +1,5 @@
 import { NextFederationPlugin } from '@module-federation/nextjs-mf';
 
-process.env.NEXT_PRIVATE_LOCAL_WEBPACK = true;
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -17,7 +15,7 @@ const nextConfig = {
         extraOptions: {
           exposePages: true,
           enableImageLoaderFix: true,
-          publicPath: 'http://localhost:3001/_next/static/',
+          publicPath: 'http://localhost:3002/_next/static/',
           enableUrlLoaderFix: true,
         },
       }),

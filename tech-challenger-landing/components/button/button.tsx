@@ -1,14 +1,14 @@
 import React from 'react';
-import { Props } from '@/components/atoms/button/button.interface';
 import Image from 'next/image';
+import { Props } from '@/components/button/button.interface';
 
 export function Button({
-  onClick,
-  className,
-  icon,
-  disabled,
-  children,
-}: Props) {
+                         onClick,
+                         className,
+                         icon,
+                         disabled,
+                         children,
+                       }: Props) {
   function removeIconExtension(iconName: string): string {
     return iconName.replace(/\.[^/.]+$/, '');
   }
