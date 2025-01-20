@@ -17,6 +17,7 @@ app.use(cors({
 app.use(publicRoutes)
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use((req, res, next) => {
+    console.log(req.url);
     if (req.url.includes('/docs')) {
         return next();
     }

@@ -28,6 +28,7 @@ export function UploadFile({ onChange }: Props) {
         <input
           className="visuallyHiddenInput"
           type="file"
+          accept=".png, .pdf, .jpeg, .jpg"
           onChange={handleFileChange}
         />
       </label>

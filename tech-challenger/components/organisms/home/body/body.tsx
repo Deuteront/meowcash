@@ -8,12 +8,12 @@ import { useTransactionContext } from '@/components/organisms/providers/transact
 import { MOVEMENT_TYPE } from '@/components/organisms/modal-transaction/constants';
 import { HomeChartBar } from '@/components/molecules/chart/home-chart-bar';
 
-export function Body({ children }: { children: React.ReactNode }) {
-  const { transactions } = useTransactionContext();
+export function Body({children}: { children: React.ReactNode }) {
+  const {transactions} = useTransactionContext();
   const financialHistoryLastMouth = 'Relação desde o inicio';
   const [visibleValues, setVisibleValues] = useState<boolean>(true);
 
-  const { totalIncoming, totalOutgoing } = transactions?.reduce(
+  const {totalIncoming, totalOutgoing} = transactions?.reduce(
     (acc, transaction) => {
       if (transaction.type === MOVEMENT_TYPE.credit) {
         acc.totalIncoming += transaction.value;
@@ -22,7 +22,7 @@ export function Body({ children }: { children: React.ReactNode }) {
       }
       return acc;
     },
-    { totalIncoming: 0, totalOutgoing: 0 }
+    {totalIncoming: 0, totalOutgoing: 0}
   );
 
   const financialDashboards = [
@@ -52,8 +52,8 @@ export function Body({ children }: { children: React.ReactNode }) {
         <div className="container">
           <div className="row">
             <div className="col-12 context-body-home">
-              <div className="welcome-container">
-                <WelcomeMessage />
+              <div className="welcome-container col-12 col-md-12 col-lg-8 ">
+                <WelcomeMessage/>
                 <CardBalanceActual
                   icon={visibleValues ? 'visibility' : 'invisibility'}
                   textValue={totalValue?.toString()}
@@ -69,8 +69,9 @@ export function Body({ children }: { children: React.ReactNode }) {
                   )}
                 </div>
               </div>
-              <div className="separation"></div>
-              {children}
+              <div className="col-12 col-md-12 col-lg-4 transaction-container">
+                {children}
+              </div>
             </div>
           </div>
         </div>

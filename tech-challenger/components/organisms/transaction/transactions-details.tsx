@@ -9,11 +9,11 @@ import { TransactionService } from '../../../service/transaction';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 
 export function TransactionsDetails({
-  transaction,
-  edit,
-  exclude,
-}: TransactionModal) {
-  const { date, id, value, type, to, from, anexo } = transaction;
+                                      transaction,
+                                      edit,
+                                      exclude,
+                                    }: TransactionModal) {
+  const {date, id, value, type, to, from, anexo} = transaction;
 
   const downloadAnexo = async () => {
     await TransactionService.downloadAnexo(anexo as string);
@@ -34,14 +34,22 @@ export function TransactionsDetails({
             <div>
               {type === MOVEMENT_TYPE.credit ? 'Entrada' : 'Saida'}{' '}
               {anexo && (
-                <AttachFileIcon
-                  onClick={downloadAnexo}
-                  className="transactions-type anexo"
-                />
+                <Tooltip title={'Anexo'}>
+                  <AttachFileIcon
+                    onClick={downloadAnexo}
+                    className="transactions-type anexo"
+                  />
+
+                </Tooltip>
               )}
             </div>
-            {to && <div className="transactions-type">Origem: {to}</div>}
-            {from && <div className="transactions-type">Destino: {from}</div>}
+            {to &&
+              <Tooltip title={'Origem'}>
+                <div className="transactions-type">{to}</div>
+              </Tooltip>}
+            {from && <Tooltip title={'Destino'}>
+              <div className="transactions-type">{from}</div>
+            </Tooltip>}
           </div>
         </div>
       </div>

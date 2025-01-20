@@ -507,14 +507,24 @@ html, body {
 .context-body-home {
   margin-top: 48px;
   display: flex;
-  flex-direction: column;
-  gap: 48px;
+  min-height: 733px;
+}
+
+@media (max-width: $tablet_width) {
+  .context-body-home {
+    flex-direction: column;
+    gap: 24px;
+  }
 }
 
 .welcome-container {
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+
+.transaction-container {
+  padding-left: 16px;
 }
 
 .separation {
@@ -905,7 +915,7 @@ h2 {
 .transactions {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 8px;
 
   .transactions-title {
     color: $primary-color;
@@ -928,7 +938,7 @@ h2 {
 }
 
 .transactions-list {
-  height: 270px;
+  height: 537px;
   overflow-y: auto;
   overflow-x: hidden;
   gap: 1.5rem;
@@ -945,7 +955,9 @@ h2 {
   .transactions-type {
     font-size: 14px;
     color: #635D6C;
-
+    max-width: 10ch;
+    overflow-wrap: break-word;
+    white-space: normal;
     &.anexo {
       cursor: pointer;
     }
@@ -989,7 +1001,7 @@ h2 {
 
 .transaction-title {
   display: flex;
-  gap: 20px;
+  gap: 8px;
   align-self: center;
   align-items: center;
 }
@@ -1025,8 +1037,8 @@ h2 {
 
 .transactions-filter {
   display: flex;
-  gap: 16px;
-  overflow: auto;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 input[type="number"].input-slider {
@@ -1084,6 +1096,16 @@ input[type="number"].input-slider::-webkit-inner-spin-button {
   line-height: var(--Label-Large-Line-Height, 20px); /* 142.857% */
   letter-spacing: var(--Label-Large-Tracking, 0.1px);
   background-color: rgba(255, 255, 255, 0);
+}
+
+.MuiTooltip-tooltip {
+  background-color: $primary-color;
+  font-family: $custom-font;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.1px;
 }
 
 .MuiSlider-thumb {

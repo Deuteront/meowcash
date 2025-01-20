@@ -10,19 +10,19 @@ import { Button } from '@/components/atoms/button/button';
 import { UploadFile } from '@/components/atoms/upload-file/upload-file';
 
 interface ModalContentProps {
-  closeModal: () => void;
+  closeModal: (isRefetch?: boolean) => void;
   transactionId?: Transaction['id'];
 }
 
 const ModalTransaction: React.FC<ModalContentProps> = ({
-  closeModal,
-  transactionId,
-}) => {
+                                                         closeModal,
+                                                         transactionId,
+                                                       }) => {
   const [errors, setErrors] = useState<Errors>({});
   const [transactionData, setTransactionData] = useState<Transaction>(
     initialTransactionData
   );
-  const { transactions, editTransaction, addTransaction } =
+  const {transactions, editTransaction, addTransaction} =
     useTransactionContext();
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const ModalTransaction: React.FC<ModalContentProps> = ({
         : addTransaction;
 
       await transactionAction(transactionData);
-      closeModal();
+      closeModal(true);
     }
   };
 
@@ -80,7 +80,7 @@ const ModalTransaction: React.FC<ModalContentProps> = ({
           error={!!errors.value}
           helperText={errors.value}
           onChange={(value) =>
-            setTransactionData((prev) => ({ ...prev, value }))
+            setTransactionData((prev) => ({...prev, value}))
           }
         />
         <CustomSelect

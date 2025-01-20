@@ -32,22 +32,29 @@ export function TransactionPage() {
     setTransactionId(id);
     setIsModalOpen(true);
   };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   const {
     data = [],
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
     isPending,
+    refetch
   } = useStatementQuery(filter);
 
   const onChangeFilter = (filter: Filter) => {
     setFilter(filter);
   };
+
+  const remove = async (id: Transaction['id']) => {
+    removeTransaction(id);
+    await refetch();
+  };
+
+  const closeModal = async (isRefetch?: boolean) => {
+    isRefetch && await refetch();
+    setIsModalOpen(false);
+  };
+
 
   const onLoadMore = (): void => {
     if (hasNextPage && !isFetchingNextPage) {
@@ -71,7 +78,7 @@ export function TransactionPage() {
         <TransactionList
           canLoadMore={hasNextPage}
           edit={openModal}
-          exclude={removeTransaction}
+          exclude={remove}
           loading={isPending}
           onLoadMore={onLoadMore}
           transactions={data}
