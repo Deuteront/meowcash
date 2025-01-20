@@ -3,8 +3,8 @@ WORKDIR /app
 COPY . .
 RUN npm install && npm run build
 
-FROM node:20-alpine AS runner
+FROM nginx:alpine AS runner
 WORKDIR /app
-COPY --from=builder /app ./
+COPY --from=builder /app/out /usr/share/nginx/html
 EXPOSE 3001
-CMD ["npm", "start"]
+CMD ["nginx", "-g", "daemon off;"]

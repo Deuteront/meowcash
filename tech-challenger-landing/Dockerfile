@@ -1,11 +1,10 @@
-# Estágio de build
 FROM node:20-alpine AS builder
 WORKDIR /app
-COPY . .
+COPY . . 
 RUN npm install && npm run build
 
-FROM node:20-alpine AS runner
+FROM nginx:alpine AS runner
 WORKDIR /app
-COPY --from=builder /app ./
+COPY --from=builder /app/out /usr/share/nginx/html
 EXPOSE 3002
-CMD ["npm", "start"]
+CMD ["nginx", "-g", "daemon off;"]
