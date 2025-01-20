@@ -24,28 +24,6 @@ export function Header({ isAuth, loginOut }: Props) {
               <Logo />
             </Link>
             {isAuth && (
-              <div className="menu-container">
-                <Link
-                  href="/dashboard"
-                  className={`menu-item ${isActive('/dashboard') ? 'activate' : ''}`}
-                >
-                  Transferências
-                </Link>
-                <Link
-                  href="/dashboard/investments"
-                  className={`menu-item ${isActive('/dashboard/investments') ? 'activate' : ''}`}
-                >
-                  Investimentos
-                </Link>
-                <Link
-                  href="/dashboard/other-services"
-                  className={`menu-item ${isActive('/dashboard/other-services') ? 'activate' : ''}`}
-                >
-                  Outros serviços
-                </Link>
-              </div>
-            )}
-            {isAuth && (
               <span onClick={loginOut} className="logout">
                 Sair
               </span>

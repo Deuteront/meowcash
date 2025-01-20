@@ -1,15 +1,14 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/atoms/button/button';
 import ModalWrapper from '@/components/atoms/modal-wrapper/modal-wrapper';
 import ModalTransaction from '@/components/organisms/modal-transaction/modal-transaction';
-import { TransactionsDetailsList } from './transactions-list';
+import { TransactionList } from './transactions-list';
 import { useTransactionContext } from '@/components/organisms/providers/transaction-context';
-import { Filter, Transaction } from '../../../service/interfaces';
+import { Filter, Transaction } from '@/service/interfaces';
 import { TransactionFilter } from '@/components/organisms/transaction/transaction-filter';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { TransactionService } from '../../../service/transaction';
+import { useStatementQuery } from './use-statement-query';
 
 const initialFilter: Filter = {
   dateInitial: '',
@@ -22,7 +21,7 @@ const initialFilter: Filter = {
 };
 
 export function TransactionPage() {
-  const { removeTransaction, accounts } = useTransactionContext();
+  const {removeTransaction} = useTransactionContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filter, setFilter] = useState<Filter>(initialFilter);
 
@@ -38,19 +37,23 @@ export function TransactionPage() {
     setIsModalOpen(false);
   };
 
-  function fetchTodoList() {
-    return TransactionService.getStatement(accounts[0].id, filter);
-  }
-
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ['paulo', JSON.stringify(filter)],
-    queryFn: fetchTodoList,
-  });
+  const {
+    data = [],
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isPending,
+  } = useStatementQuery(filter);
 
   const onChangeFilter = (filter: Filter) => {
     setFilter(filter);
   };
 
+  const onLoadMore = (): void => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  };
   return (
     <>
       <div className="transactions">
@@ -64,27 +67,15 @@ export function TransactionPage() {
             ></Button>
           </div>
         </div>
-        <TransactionFilter filter={filter} onChange={onChangeFilter} />
-        {isPending ? (
-          <div className="transactions-none">
-            <span>Carregando?</span>
-          </div>
-        ) : isError ? (
-          <div className="transactions-none">
-            <span>Error: {error.message}</span>
-          </div>
-        ) : data?.result.transactions.length !== 0 ? (
-          <TransactionsDetailsList
-            transactionsList={data?.result.transactions}
-            edit={openModal}
-            exclude={removeTransaction}
-          />
-        ) : (
-          <div className="transactions-none">
-            <span>Já realizou alguma transação?</span>
-            <span>Nenhuma transação encontrada.</span>
-          </div>
-        )}
+        <TransactionFilter filter={filter} onChange={onChangeFilter}/>
+        <TransactionList
+          canLoadMore={hasNextPage}
+          edit={openModal}
+          exclude={removeTransaction}
+          loading={isPending}
+          onLoadMore={onLoadMore}
+          transactions={data}
+        />
       </div>
       <ModalWrapper isOpen={isModalOpen} title="">
         <ModalTransaction

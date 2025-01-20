@@ -21,10 +21,20 @@ const deleteById = async (id) => {
   return DetailedAccount.findByIdAndDelete(id);
 };
 
+const paginatedGet = async (detailedAccount = {}, page = 1, limit = 10) => {
+  const skip = (page - 1) * limit;
+  const data = DetailedAccount.find(detailedAccount)
+    .skip(skip)
+    .limit(limit);
+  const total = DetailedAccount.countDocuments(detailedAccount);
+  return await Promise.all([data, total]);
+};
+
 module.exports = {
   create,
   getById,
   get,
   update,
   deleteById,
+  paginatedGet
 };

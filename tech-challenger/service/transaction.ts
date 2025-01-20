@@ -14,20 +14,18 @@ const createTransaction = async (
   );
 };
 
-const getStatement = async (
-  accountId: string,
-  filter?: Filter
-): Promise<{
-  message: string;
-  result: { transactions: Transaction[]; lastPage: { nextPage?: true } };
-}> => {
-  return service.get<
-    {
-      message: string;
-      result: { transactions: Transaction[]; lastPage: { nextPage?: true } };
-    },
-    Filter
-  >(`/account/${accountId}/statement`, token, filter);
+interface Statement {
+  transactions: Transaction[];
+  pagination: {
+    total: number;
+    page: number;
+    pages: number;
+    limit: 10;
+  };
+}
+
+const getStatement = async (accountId: string, filter?: Filter): Promise<Statement> => {
+  return service.get<Statement, Filter>(`/account/${accountId}/statement`, token, filter);
 };
 
 const editTransaction = async (

@@ -541,6 +541,7 @@ html, body {
   align-content: center;
   font-size: 18px;
   font-weight: 500;
+  cursor: pointer;
 }
 
 .menu-item {
@@ -901,7 +902,6 @@ h2 {
 }
 
 
-
 .transactions {
   display: flex;
   flex-direction: column;
@@ -931,6 +931,7 @@ h2 {
   height: 270px;
   overflow-y: auto;
   overflow-x: hidden;
+  gap: 1.5rem;
 
   .transactions-list-title {
     color: #28262B;
@@ -1429,4 +1430,10 @@ span.secondary-text {
 .disabled-button {
   cursor: not-allowed;
   opacity: 0.38;
+}
+
+.transactions-list__load-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

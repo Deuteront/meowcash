@@ -29,6 +29,7 @@ class AccountController {
       getAccount: require('../feature/Account/getAccount'),
       saveTransaction: require('../feature/Transaction/saveTransaction'),
       getTransaction: require('../feature/Transaction/getTransaction'),
+      getPaginatedTransaction: require('../feature/Transaction/getPaginatedTransaction'),
       getCard: require('../feature/Card/getCard'),
     }, di);
   }
@@ -171,8 +172,10 @@ class AccountController {
     }
   }
 
+  PAGE_LIMIT = 10;
+
   async getStatment(req, res) {
-    const { getTransaction, transactionRepository } = this.di;
+    const { getPaginatedTransaction, transactionRepository } = this.di;
     const { accountId } = req.params;
     const { type, valueInitial, valueFinal, dateInitial, dateFinal, text, anexo } = req.query;
 
@@ -187,10 +190,23 @@ class AccountController {
       anexo: anexo === 'true' ? true : anexo === 'false' ? false : undefined,
     };
 
+    if (req.query.page) {
+      filter.page = Number(req.query.page);
+    }
     try {
-      const transactions = await getTransaction({ filter, repository: transactionRepository });
+      const {
+        total,
+        transactions,
+      } = await getPaginatedTransaction({ filter, repository: transactionRepository });
+      const pagination = {
+        total,
+        page: Number(req.query.page),
+        pages: Math.ceil(total / this.PAGE_LIMIT),
+        limit: this.PAGE_LIMIT,
+      };
       res.status(200).json({
-        message: 'Transações recuperadas com sucesso', result: { transactions },
+        transactions,
+        pagination,
       });
     } catch (error) {
       console.error('Erro ao recuperar transações:', error);
