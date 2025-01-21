@@ -66,10 +66,6 @@ class AccountController {
     const { accountId, value, type, from, to } = req.body;
     const anexo = req.file;
 
-    if (!anexo) {
-      return res.status(400).json({ message: 'Arquivo não enviado!' });
-    }
-
     const transactionDTO = new TransactionDTO({
       accountId,
       value,
