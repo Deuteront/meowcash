@@ -14,7 +14,7 @@ const nextConfig = {
         name: 'host',
         filename: '_next/static/chunks/remoteEntry.js',
         remotes: {
-          landing: `landing@http://localhost:3001/_next/static/chunks/remoteEntry.js`,
+          landing: `landing@http://localhost:80/components/_next/static/chunks/remoteEntry.js`,
         },
         shared: {},
         extraOptions: {
