@@ -1,16 +1,15 @@
 import { Filter, Transaction } from './interfaces';
 import { service } from './facade';
-import { getFromStorage } from '../utils/storage';
+import { getFromStorage } from '@/utils/storage';
 
-const token = getFromStorage('authToken') as string;
 
 const createTransaction = async (
-  transaction: FormData
+  transaction: FormData,
 ): Promise<Transaction> => {
   return service.post<Transaction, FormData>(
     '/account/transaction',
     transaction,
-    token
+    getFromStorage('authToken') as string,
   );
 };
 
@@ -25,12 +24,12 @@ interface Statement {
 }
 
 const getStatement = async (accountId: string, filter?: Filter): Promise<Statement> => {
-  return service.get<Statement, Filter>(`/account/${accountId}/statement`, token, filter);
+  return service.get<Statement, Filter>(`/account/${accountId}/statement`, getFromStorage('authToken') as string, filter);
 };
 
 const editTransaction = async (
   transactionId: string,
-  transaction: FormData
+  transaction: FormData,
 ): Promise<{
   message: string;
   result: Transaction;
@@ -41,21 +40,21 @@ const editTransaction = async (
       result: Transaction;
     },
     FormData
-  >(`/account/transaction/${transactionId}`, transaction, token);
+  >(`/account/transaction/${transactionId}`, transaction, getFromStorage('authToken') as string);
 };
 
 const deleteTransaction = async (
-  transactionId: string
+  transactionId: string,
 ): Promise<{
   message: string;
 }> => {
   return service.delete<{
     message: string;
-  }>(`/account/transaction/${transactionId}`, token);
+  }>(`/account/transaction/${transactionId}`, getFromStorage('authToken') as string);
 };
 
 const downloadAnexo = async (anexo: string) => {
-  return service.download(`/account/transaction/${anexo}`, token);
+  return service.download(`/account/transaction/${anexo}`, getFromStorage('authToken') as string);
 };
 
 export const TransactionService = {

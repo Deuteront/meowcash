@@ -19,7 +19,7 @@ const nextConfig = {
         extraOptions: {
           exposePages: true,
           enableImageLoaderFix: true,
-          publicPath: 'http://localhost:80/components/_next/static/',
+          publicPath: 'http://localhost:3000/components/_next/static/',
           enableUrlLoaderFix: true,
         },
       }),
