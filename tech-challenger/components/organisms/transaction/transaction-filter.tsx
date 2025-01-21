@@ -23,7 +23,7 @@ export function TransactionFilter({ onChange, filter }: Props) {
 
   const handleOpenPopover = (
     event: React.MouseEvent<HTMLElement>,
-    id: string
+    id: string,
   ) => {
     setOpenDate(false);
     setAnchorEl(event.currentTarget);
@@ -119,7 +119,7 @@ export function TransactionFilter({ onChange, filter }: Props) {
   const getLabelDataFilter = () => {
     if (dateInitial && dateFinal) {
       return `${dayjs(dateInitial).format('DD/MM/YYYY')} - ${dayjs(
-        dateFinal
+        dateFinal,
       ).format('DD/MM/YYYY')}`;
     } else if (dateInitial) {
       return dayjs(dateInitial).format('DD/MM/YYYY');
@@ -280,11 +280,11 @@ export function TransactionFilter({ onChange, filter }: Props) {
           onDelete={
             (valueFinal || 0) + (valueInitial || 0) > 0
               ? () =>
-                  onChange({
-                    ...filter,
-                    valueInitial: 0,
-                    valueFinal: 0,
-                  })
+                onChange({
+                  ...filter,
+                  valueInitial: 0,
+                  valueFinal: 0,
+                })
               : undefined
           }
           style={{ cursor: 'pointer' }}
@@ -353,13 +353,12 @@ export function TransactionFilter({ onChange, filter }: Props) {
           type="text"
           placeholder="Pesquisar"
           className={'search-input'}
+          onKeyUp={() => onChange({ ...filter, text })}
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
         <span
-          className={'button-search'}
-          onClick={() => onChange({ ...filter, text })}
-        >
+          className={'button-search'}>
           <SearchIcon />
         </span>
       </div>

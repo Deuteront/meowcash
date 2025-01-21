@@ -537,14 +537,6 @@ html, body {
   gap: 16px;
   min-width: 0;
 
-  @media only screen and (max-width: $mobile_width) {
-    display: none;
-  }
-
-  @media only screen and (min-width: $mobile_width) and (max-width: $tablet_width) {
-    display: none;
-  }
-
 }
 
 .logout {
@@ -958,6 +950,7 @@ h2 {
     max-width: 10ch;
     overflow-wrap: break-word;
     white-space: normal;
+
     &.anexo {
       cursor: pointer;
     }
